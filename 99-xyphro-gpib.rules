@@ -1,0 +1,2 @@
+SUBSYSTEM=="usb", ATTR{idVendor}=="03eb", ATTR{idProduct}=="2065", MODE="0666"
+KERNEL=="usbtmc*", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2065", MODE="0666"
