@@ -154,6 +154,7 @@ class ControlPanel(QWidget):
     stop_clicked = pyqtSignal()
     autoscale_clicked = pyqtSignal()
     save_clicked = pyqtSignal()
+    save_image_clicked = pyqtSignal()
 
     def __init__(self) -> None:
         super().__init__()
@@ -290,6 +291,12 @@ class ControlPanel(QWidget):
         ))
         act_layout.addWidget(self.save_btn)
 
+        self.save_image_btn = QPushButton("Save Screenshot...")
+        self.save_image_btn.setStyleSheet(BUTTON_STYLE.format(
+            bg="#74c7ec", fg="#1e1e2e", hover="#89dceb"
+        ))
+        act_layout.addWidget(self.save_image_btn)
+
         layout.addWidget(act_group)
         layout.addStretch()
 
@@ -315,6 +322,7 @@ class ControlPanel(QWidget):
         self.stop_btn.clicked.connect(self.stop_clicked.emit)
         self.autoscale_btn.clicked.connect(self.autoscale_clicked.emit)
         self.save_btn.clicked.connect(self.save_clicked.emit)
+        self.save_image_btn.clicked.connect(self.save_image_clicked.emit)
 
     @property
     def current_channel(self) -> int | list[int]:

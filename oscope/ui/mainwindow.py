@@ -13,7 +13,7 @@ from oscope.gpib.worker import GpibWorker
 from oscope.models.waveform import WaveformData
 from oscope.ui.connection_bar import ConnectionBar
 from oscope.ui.controls import ControlPanel
-from oscope.ui.dialogs import get_save_path
+from oscope.ui.dialogs import get_save_image_path, get_save_path
 from oscope.ui.waveform_plot import WaveformPlotWidget
 
 
@@ -80,6 +80,7 @@ class MainWindow(QMainWindow):
         self._controls.stop_clicked.connect(self._worker.request_stop)
         self._controls.autoscale_clicked.connect(self._worker.request_autoscale)
         self._controls.save_clicked.connect(self._on_save)
+        self._controls.save_image_clicked.connect(self._on_save_image)
 
     def _wire_worker_signals(self) -> None:
         self._worker.connected.connect(self._on_connected)
@@ -147,6 +148,15 @@ class MainWindow(QMainWindow):
                         ch_path = path
                     save_waveform_csv(ch_path, waveform)
                 self.statusBar().showMessage(f"Saved to {path}")
+            except Exception as e:
+                QMessageBox.warning(self, "Save Error", str(e))
+
+    def _on_save_image(self) -> None:
+        path = get_save_image_path(self)
+        if path:
+            try:
+                self._plot.save_as_image(path)
+                self.statusBar().showMessage(f"Screenshot saved to {path}")
             except Exception as e:
                 QMessageBox.warning(self, "Save Error", str(e))
 

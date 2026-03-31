@@ -12,3 +12,14 @@ def get_save_path(parent: QWidget) -> str | None:
         "CSV Files (*.csv);;All Files (*)",
     )
     return path if path else None
+
+
+def get_save_image_path(parent: QWidget) -> str | None:
+    """Show a save image dialog and return the chosen path, or None if cancelled."""
+    path, _ = QFileDialog.getSaveFileName(
+        parent,
+        "Save Screenshot",
+        "",
+        "JPEG Image (*.jpg);;PNG Image (*.png);;All Files (*)",
+    )
+    return path if path else None

@@ -86,6 +86,12 @@ class WaveformPlotWidget(pg.PlotWidget):
         self._traces.clear()
         self._trigger_line.setVisible(False)
 
+    def save_as_image(self, path: str) -> None:
+        """Save the current plot view as a JPG/PNG image."""
+        from pyqtgraph.exporters import ImageExporter
+        exporter = ImageExporter(self.plotItem)
+        exporter.export(path)
+
     def _on_mouse_moved(self, pos: pg.Point) -> None:
         vb = self.getViewBox()
         if vb is not None and self.sceneBoundingRect().contains(pos):
